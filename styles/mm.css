@@ -1,0 +1,277 @@
+/* CSS */
+
+@font-face {
+    font-family: "CalibreWeb";
+    font-weight: bold;
+    src: url("fonts/CalibreWeb-Semibold.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-Semibold.woff2") format("woff2"), url("/fonts/CalibreWeb-Semibold.woff") format("woff");
+}
+@font-face {
+    font-family: "CalibreWeb";
+    font-weight: 400;
+    src: url("fonts/CalibreWeb-Regular.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-Regular.woff2") format("woff2"), url("/fonts/CalibreWeb-Regular.woff") format("woff"); /* essa última regular (woff) não foi encontrada... */
+}
+@font-face {
+    font-family: "CalibreWeb";
+    font-style: italic;
+    src: url("fonts/CalibreWeb-RegularItalic.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-RegularItalic.woff2") format("woff2"), url("/fonts/CalibreWeb-RegularItalic.woff") format("woff");
+}
+@font-face {
+    font-family: "CalibreWeb";
+    font-weight: 500;
+    src: url("fonts/CalibreWeb-Medium.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-Medium.woff2") format("woff2"), url("/fonts/CalibreWeb-Medium.woff") format("woff");
+}
+
+/* ------------------ */
+
+* {
+	transition: all 0.5s ease;
+}
+
+html {}
+
+body {
+	height: : 100%;
+	font-family: Raleway, "Open Sans", CalibreWeb, sans-serif;
+}
+
+ul {
+	list-style: none;
+}
+li {}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+	color: #2980b9;
+}
+
+button {
+	padding: 10px;
+	border-radius: 4px;
+}
+
+/* ------------------ */
+
+.wrapper {
+	width: 960px;
+	margin: 0 auto;
+}
+
+@media all and (max-width: 640px) {
+	.wrapper {
+		width: 100%;
+		padding: 0 15px;
+	}
+}
+@media all and (min-width: 641px) and (max-width: 959px) {
+	.wrapper {
+		width: 600px;
+	}
+}
+
+/* ------------------ */
+
+.steps {
+	
+}
+
+#step1 {
+	background: #16a085;
+	padding: 80px 0 60px;
+	height: 100%;
+	text-align: center;
+}
+#step1_1,
+#step1_2_1,
+#step1_2_2,
+#step2 {
+	display: none;
+}
+
+html.step-s1 {
+	background: #1abc9c;
+}
+html.step-s2 {
+	background: #fff;
+}
+
+/* ------------------ */
+
+ul.gametype li {
+	display: inline;
+}
+ul.gametype button {
+	padding: 15px;
+	margin: 15px 30px;
+	border: none;
+	background: #1abc9c;
+	border-radius: 16px;
+	cursor: pointer;
+}
+ul.gametype button:hover {
+	background: #16bc8c;
+}
+ul.gametype button:active {
+	background: #1fac7c;
+}
+
+/* ------------------ */
+
+#pegs {
+	display: none;
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	/*background: rgba(0,0,0,.25); /* put a gradient! */
+	border-radius: 150px;
+	/*-*/
+	background: transparent; /* For browsers that do not support gradients */
+	background: -webkit-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Safari */
+	background: -o-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Firefox 3.6 to 15 */
+	background: radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0)); /* Standard syntax */
+}
+#pegs div div {
+	position: absolute;
+}
+#pegs div div:nth-child(1) {
+	margin-top: 75px;
+	margin-left: 75px;
+}
+#pegs div div:nth-child(2) {
+	margin-top: 125px;
+	margin-left: 50px;
+}
+#pegs div div:nth-child(3) {
+	margin-top: 175px;
+	margin-left: 75px;
+}
+#pegs div div:nth-child(4) {
+	margin-top: 200px;
+	margin-left: 125px;
+}
+#pegs div div:nth-child(5) {
+	margin-top: 175px;
+	margin-left: 175px;
+}
+#pegs div div:nth-child(6) {
+	margin-top: 125px;
+	margin-left: 200px;
+}
+#pegs div div:nth-child(7) {
+	margin-top: 75px;
+	margin-left: 175px;
+}
+#pegs div div:nth-child(8) {
+	margin-top: 50px;
+	margin-left: 125px;
+}
+
+/* ------------------ */
+
+#colors div {
+	width: 46px;
+	height: 46px;
+	border: 2px solid #fafafa;
+	border-radius: 25px;
+}
+
+#colors #r {
+	background: #e74c3c;
+}
+#colors #g {
+	background: #2ecc71;
+}
+#colors #b {
+	background: #3498db;
+}
+#colors #y {
+	background: #f1c40f;
+}
+#colors #o {
+	background: #e67e22;
+}
+#colors #p {
+	background: #9b59b6;
+}
+#colors #c {
+	background: #1abc9c;
+}
+#colors #m {
+	background: #de6bae;
+}
+
+/* ------------------ */
+
+.spots,
+.fixes {
+	text-align: center;
+	margin: 80px auto  0;
+	width: 580px;
+	height: 80px;
+}
+.spot {
+	float: left;
+	width: 40px;
+	height: 40px;
+	margin: 15px;
+	border: 1px solid #666;
+	border-radius: 20px;
+}
+.fixes {
+	height: auto;
+	margin: 0 auto 50px;
+}
+.fixes input[type=checkbox] {
+	width: 12px;
+	height: 12px;
+	margin: 0 28px;
+}
+/*.fixes input[type=checkbox]:first-child {
+	margin: 0 28px 0 26px;
+}*/
+
+#history .spots {
+	height: auto;
+	margin-top: 40px;
+}
+#history .spot {
+	width: 30px;
+	height: 30px;
+	margin: 16px;
+}
+#history .spot:nth-of-type(1) {
+	margin-left: 50px;
+}
+#history .spot:last-child {
+	margin-right: 35px;
+}
+
+.repeat {
+	position: absolute;
+    margin-left: -500px;
+    margin-top: 16px;
+	padding: 4px;
+}
+
+#send {
+	display: block;
+	margin: 0 auto;
+}
+
+/* ------------------ */
+
+/*
+
+fundos
+vermelho #e74c3c / escuro #c0392b
+azul #3498db / escuro #2980b9
+verde #1abc9c / escuro #16a085
+preto #202020
+
+*/
+
+/* ------------------ */
+

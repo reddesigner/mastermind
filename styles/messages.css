@@ -1,0 +1,46 @@
+/* CSS - messages */
+
+.message-wrapper {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,.5);
+}
+
+.message {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	top: 50%;
+	left: 50%;
+}
+.message-box {
+	width: 400px;
+	height: 200px;
+	margin-top: -100px;
+	margin-left: -200px;
+	background: #fff;
+	border: 1px solid #fafafa;
+	border-radius: 8px;
+	box-shadow: 2px 0 0 rgba(0,0,0,.25);
+}
+.message-text {
+	text-align: center;
+	padding: 30px 15px;
+}
+.message-button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-left: -40px;
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+	line-height: 1;
+	color: #fff;
+	font-weight: bold;
+	background: #2980b9;
+	border: none;
+}
