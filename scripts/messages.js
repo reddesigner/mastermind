@@ -27,7 +27,7 @@ var messages = {
 		})
 	},
 	
-	createTipBlock : function(){
+	createTipBlock : function(msg){
 		var m = "\
 			<div class='tip-message'>\
 				<div class='tip-message-text'>"+msg+"</div>\

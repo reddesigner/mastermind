@@ -1,5 +1,17 @@
 /* CSS */
 
+/*
+
+...some reference colors:
+red 	#e74c3c / #c0392b
+blue 	#3498db / #2980b9
+green 	#1abc9c / #16a085
+black 	#202020
+
+*/
+
+/* ------------------ */
+
 @font-face {
     font-family: "CalibreWeb";
     font-weight: bold;
@@ -8,7 +20,8 @@
 @font-face {
     font-family: "CalibreWeb";
     font-weight: 400;
-    src: url("fonts/CalibreWeb-Regular.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-Regular.woff2") format("woff2"), url("/fonts/CalibreWeb-Regular.woff") format("woff"); /* essa última regular (woff) não foi encontrada... */
+    src: url("fonts/CalibreWeb-Regular.eot?#iefix") format("embedded-opentype"), url("/fonts/CalibreWeb-Regular.woff2") format("woff2"), url("/fonts/CalibreWeb-Regular.woff") format("woff");
+	/* this last one (woff) was not found... */
 }
 @font-face {
     font-family: "CalibreWeb";
@@ -24,7 +37,8 @@
 /* ------------------ */
 
 * {
-	transition: all 0.5s ease;
+	transition: all 0.75s ease;
+	outline: none;
 }
 
 html {}
@@ -32,10 +46,12 @@ html {}
 body {
 	height: : 100%;
 	font-family: Raleway, "Open Sans", CalibreWeb, sans-serif;
+	overflow-y: scroll;
 }
 
 ul {
 	list-style: none;
+	padding: 0;
 }
 li {}
 
@@ -44,12 +60,26 @@ a:link,
 a:hover,
 a:active,
 a:visited {
-	color: #2980b9;
+	color: #202020;
+	text-decoration: underline;
 }
 
 button {
 	padding: 10px;
 	border-radius: 4px;
+	vertical-align: middle;
+}
+
+input[type=text] {
+	padding: 10px;
+}
+
+select {
+	padding: 6px;
+	margin-top: 8px;
+}
+option {
+	padding: 4px 0;
 }
 
 /* ------------------ */
@@ -73,21 +103,26 @@ button {
 
 /* ------------------ */
 
-.steps {
-	
-}
+.steps {}
 
-#step1 {
-	background: #16a085;
-	padding: 80px 0 60px;
-	height: 100%;
-	text-align: center;
-}
+#step1,
 #step1_1,
 #step1_2_1,
 #step1_2_2,
 #step2 {
 	display: none;
+	padding-top: 80px;
+	text-align: center;
+}
+
+#step1 {
+	background: #16a085;
+	padding: 80px 0 60px;
+}
+#step1_1,
+#step1_2_1,
+#step1_2_2 {
+	padding-top: 40px;
 }
 
 html.step-s1 {
@@ -233,6 +268,18 @@ ul.gametype button:active {
 	margin: 0 28px 0 26px;
 }*/
 
+#send {
+	display: block;
+	margin: 0 auto;
+}
+
+/* ------------------ */
+
+#history {
+	overflow: hidden;
+	margin-bottom: 80px;
+}
+
 #history .spots {
 	height: auto;
 	margin-top: 40px;
@@ -249,29 +296,26 @@ ul.gametype button:active {
 	margin-right: 35px;
 }
 
+.historyEntry {
+	overflow: hidden;
+}
+
 .repeat {
 	position: absolute;
     margin-left: -500px;
     margin-top: 16px;
-	padding: 4px;
+	padding: 4px 8px;
+	left: 50%;
+	border: none;
+	background: #f3f3f3;
 }
 
-#send {
-	display: block;
-	margin: 0 auto;
+.results {
+	position: absolute;
+    margin-left: 300px;
+    margin-top: 16px;
+	padding: 6px;
+	left: 50%;
 }
 
 /* ------------------ */
-
-/*
-
-fundos
-vermelho #e74c3c / escuro #c0392b
-azul #3498db / escuro #2980b9
-verde #1abc9c / escuro #16a085
-preto #202020
-
-*/
-
-/* ------------------ */
-

@@ -8,33 +8,42 @@
 		<link rel="icon" href="images/favicon.png">
 		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans|Raleway:300|Open+Sans:300,400">
 		<link rel="stylesheet" href="lib/normalize.css">
-		<link rel="stylesheet" href="styles/mm.css">
+		<link rel="stylesheet" href="styles/mastermind.css">
 		<link rel="stylesheet" href="styles/messages.css">
 		<script type="text/javascript" src="lib/jquery.min.js"></script>
 		<script type="text/javascript" src="scripts/messages.js"></script>
+		<script type="text/javascript" src="scripts/proxy.js"></script>
+		<script type="text/javascript" src="scripts/state.control.js"></script>
 		<script type="text/javascript" src="scripts/main.control.js"></script>
 	</head>
 	<body>
 
 		<div id="step1" class="steps">
+			
 			<div class="wrapper">
+
 				<h1>MasterMind</h1>
+
 				<p>Welcome to the Master Mind online game.</p>
 				<p>Want to know how to play? Go to <a href="http://en.wikipedia.org/wiki/Mastermind_(board_game)">wikipedia</a> and take a look on history and simple rules of the game.</p>
 				<h2>Ready to play?</h2>
 				<p>Choose if you want to play alone or with someone else</p>
+
 				<ul class="gametype">
 					<li><button id="btn_gameType_Single">Single Player</button></li>
 					<li><button id="btn_gameType_Multi">Multiplayer</button></li>
 				</ul>
+
 				<div id="step1_1">
-					<button id="btn_newSigleGame">New Game</button>
-					<input type="text" id="inp_userName" placeholder="Inform us your name">
+					<input type="text" id="inp_userName" placeholder="Inform us your name and...">
+					<button id="btn_newSigleGame">Go and play!</button>
 				</div>
+
 				<div id="step1_2_1">
-					<button id="btn_newMultiGame">New Game</button>
-					<input type="text" id="inp_userName_Multi" placeholder="Inform us your name">
+					<input type="text" id="inp_userName_Multi" placeholder="Inform us your name and...">
+					<button id="btn_newMultiGame">Pick a game!</button>
 				</div>
+
 				<ul id="step1_2_2">
 					<li>Select a game from the list</li>
 					<li>
@@ -49,51 +58,58 @@
 					</li>
 					-->
 				</ul>
+
 			</div>
+			
 		</div>
 		
 		<div id="step2" class="steps">
 
-			<div id="controls">
+			<div class="wrapper">
 
-				<div class="spots">
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
-					<div class="spot"></div>
+				<h1>MasterMind</h1>
+
+				<div id="controls">
+
+					<div class="spots">
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+						<div class="spot"></div>
+					</div>
+
+					<div class="fixes">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+						<input type="checkbox">
+					</div>
+
+					<button id="send">Send it!</button>
+
 				</div>
 
-				<div class="fixes">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-					<input type="checkbox">
-				</div>
+				<div id="history"></div>
 
-				<button id="send">Send it!</button>
-
-			</div>
-
-			<div id="history"></div>
-
-			<div id="pegs">
-				<div id="colors">
-					<div id="r"></div>
-					<div id="g"></div>
-					<div id="b"></div>
-					<div id="y"></div>
-					<div id="o"></div>
-					<div id="p"></div>
-					<div id="c"></div>
-					<div id="m"></div>
+				<div id="pegs">
+					<div id="colors">
+						<div id="r"></div>
+						<div id="g"></div>
+						<div id="b"></div>
+						<div id="y"></div>
+						<div id="o"></div>
+						<div id="p"></div>
+						<div id="c"></div>
+						<div id="m"></div>
+					</div>
 				</div>
 			</div>
 

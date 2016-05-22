@@ -44,3 +44,16 @@
 	background: #2980b9;
 	border: none;
 }
+
+.tip-message {
+	position: absolute;
+	top: 50%; /* JS setting */
+	left: 50%; /* JS setting */
+}
+.tip-message-text {
+	padding: 8px;
+	background: #fafafa;
+	border-radius: 8px;
+	margin-left: -100%;
+	box-shadow: 0 0 4px rgba(0,0,0,.5);
+}

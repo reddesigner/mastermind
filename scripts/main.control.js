@@ -12,16 +12,46 @@
 /* exact - number of right guessed itens after POST
 /* near - number of almost right guessed itens after POST
 */
-var mm = {
-	url : "https://az-mastermind.herokuapp.com",
-	ep_new_game : "/new_game",
-	ep_new_guess : "/guess",
+
+/**
+/* APIs
+/* https://az-mastermind.herokuapp.com | Axiom Zen API
+/* http://devpost.com/software/mastermind-onpfhe | from slack user "quicoli" | http://vanhack-az-mastermind.azurewebsites.net/ (api)
+*/
+
+var mm_global = {
 	activeSpot : null,
 	gkey :null,
 	gcode : null,
+	gplayer : null,
 	exact : null,
 	near : null,
 	user : "Username"
+};
+
+var mm_api_az = {
+	url : "https://az-mastermind.herokuapp.com",
+	ep_new_game : "/new_game",
+	ep_new_guess : "/guess",
+	r_gamekey : "game_key"
+};
+
+var mm_api_vh = {
+	url : "http://vanhack-az-mastermind.azurewebsites.net",
+	ep_new_game : "/api/mastermind/NewGame",
+	ep_new_guess : "/api/mastermind/Guess",
+	ep_join_game : "/api/mastermind/JoinGame",
+	ep_list_games : "/api/mastermind/GamesAvailable", // GET
+	r_gamekey : "GameId"
+};
+
+var mm_api = {
+	url : "http://vanhack-az-mastermind.azurewebsites.net",
+	ep_new_game : "/api/mastermind/NewGame",
+	ep_new_guess : "/api/mastermind/Guess",
+	ep_join_game : "/api/mastermind/JoinGame",
+	ep_list_games : "/api/mastermind/GamesAvailable", // GET
+	r_gamekey : "GameId"
 };
 
 /* no $ conflict */
@@ -29,52 +59,91 @@ var mm = {
 
 	console.log("Start running...");
 	
-	if(state.getLocalGameKey()){
-		$("#step1").hide();
-		$("#step2").show();
-		$("html").attr("class", "html-step-s2");
-		state.reconstructHistory();
-	}
-	
 	/* on ready */
 	$(function(){
 
+		/**
+		/* TODO -> Check for local game key
+		*/
+		/* 
+		if(state.getLocalGameKey()){
+			console.log("Hey, we got a local game key!");
+			$("html").attr("class", "html-step-s2");
+			$("#step2").show("fast");
+			state.reconstructHistory();
+		}*/
+		
+		/**
+		/* First screen!
+		*/
+		$("#step1").show("fast");
+		
+		/**
+		/* Next steps - start a new game
+		*/
 		$("#btn_gameType_Single").on("click", function(){
-			$("#step1_1").show();
+			$("#step1_2_1").hide();
+			$("#step1_1").show("fast");
 		});
 		$("#btn_gameType_Multi").on("click", function(){
-			$("#step1_2_1").show();
+			$("#step1_1").hide();
+			$("#step1_2_1").show("fast");
 		});
+
+		/**
+		/* Action - Start the game!
+		*/
 		$("#btn_newSigleGame").on("click", function(){
 			if ( $("#inp_userName").val() != "" )
-				mm.user = $("#inp_userName").val();
+				mm_global.user = $("#inp_userName").val();
 			else {
 				messages.alert("You have to inform a name!");
 				return;
 			}
-			proxy.start(mm.user).success(function(data){
-				console.log("POST new_game on API", data);
+			proxy.start().success(function(data){
+				console.log("POST on new game API end point", data);
 				// TODO functions for success and fail
-				mm.gkey = data.game_key;
+				mm_global.gkey = data[mm_api.r_gamekey];
+				mm_global.gplayer = data.PlayerId;
+				console.log("game key e player key >>>", mm_global.gkey, mm_global.gplayer);
 			}).error(function(data){
 				console.error(data);
 			});
-			$("#step1").hide();
-			$("#step2").show();
+			$("#step1").hide("fast");
+			$("#step2").show("fast");
 			$("html").attr("class", "html-step-s2");
 		});
+		
+		/**
+		/*	Action - Select a multiplayer game!
+		*/
 		$("#btn_newMultiGame").on("click", function(){
 			if ( $("#inp_userName_Multi").val() != "" )
-				mm.user = $("#inp_userName_Multi").val();
+				mm_global.user = $("#inp_userName_Multi").val();
 			else {
 				messages.alert("You have to inform a name!");
 				return;
 			}
 			proxy.listGames();
-			$("#step1_2_1").hide();
-			$("#step1_2_2").show();
+			$("#step1_2_1").hide("fast");
+			$("#step1_2_2").show("fast");
 		});
-
+		
+		/**
+		/*	Action - Start a multiplayer game!
+		*/
+		$("body").on("click", "select option", function(){
+			mm_global.gkey = $(this).val();
+			proxy.joinGame().success(function(data){
+				mm_global.gplayer = data.PlayerId;
+				console.log("game key e player key >>>", mm_global.gkey, mm_global.gplayer);
+			}).error(function(data){
+				console.error(data);		
+			});
+			$("#step1").hide("fast");
+			$("#step2").show("fast");
+			$("html").attr("class", "html-step-s2");
+		});
 
 		/**
 		/* Action
@@ -84,7 +153,7 @@ var mm = {
 		$("#controls").on("click", ".spot", function(e){
 			e.stopPropagation();
 			// target position is .spot position plus half its size...
-			mm.activeSpot = $(this);
+			mm_global.activeSpot = $(this);
 			var p = $(this).position();
 			console.log("Spot position: ", p.left, p.top);
 			// pegs recieves target position minus half its own size...
@@ -114,24 +183,54 @@ var mm = {
 		/* and is send to API with game key.
 		*/
 		$("#send").on("click", function(){
-			mm.gcode = "";
+			mm_global.gcode = "";
 			$("#controls .spots .spot").each(function(i){
-				mm.gcode += $(this).attr("data-guess");
+				mm_global.gcode += $(this).attr("data-guess");
 			});
-			if (mm.gcode.indexOf("undefined") >= 0) {
+			if (mm_global.gcode.indexOf("undefined") >= 0) {
 				messages.alert("Fill all the blank spots!");
 				return false;
 			}
-			proxy.guess(mm.gcode, mm.gkey).success(function(data){
+			proxy.guess().success(function(data){
 				console.log(data);
 				// TODO functions for success and fail
-				if (data.solved == "true") console.log("CONGRATULATIONS!!!", "Time taken: "+data.time_taken);
-				mm.exact = data.past_results[data.past_results.length-1].exact;
-				mm.near = data.past_results[data.past_results.length-1].near;
-				$("#history").prepend(""
-					+"<div class='spots'><button class='repeat'>Repeat this combination</button>" 
-					+ $("#controls .spots").html() + "</div><div style='padding-top: 26px'>"
-					+ "Exacts: <strong>"+mm.exact+"</strong> &nbsp; | &nbsp; Near: <strong>"+mm.near+"</strong></div>");
+				if (data.solved == "true") {
+					console.log(data.result, "Time taken: "+data.time_taken, "Number of guesses: "+data.num_guesses);
+					messages.alert(data.result);
+					controller.blockSend();
+				}
+				// TODO generalize diferent API paramenters
+				if ( data.Players ){
+					for ( var i = 0; i < data.Players.length; i++ ) {
+						if (data.Players[i].Winner && data.Players[i].Name == mm_global.user) {
+							messages.alert("Congrats, "+data.Players[i].Name+"! You won the game!");
+							controller.blockSend();
+						} else if (data.Players[i].Winner) {
+							messages.alert("Ops, the player "+data.Players[i].Name+" has won.");
+							controller.blockSend();
+						}
+						// TODO we have to make a fallback if players have the same name!
+						if (data.Players[i].Name == mm_global.user) {
+							mm_global.exact = data.Players[i].GuessHistory[data.Players[i].GuessHistory.length-1].ExactCount;
+							mm_global.near = data.Players[i].GuessHistory[data.Players[i].GuessHistory.length-1].NearCount
+						}
+					}
+				} else {
+					mm_global.exact = data.past_results[data.past_results.length-1].exact;
+					mm_global.near = data.past_results[data.past_results.length-1].near;
+				}
+				console.log("exacts and nears >>>", mm_global.exact, mm_global.near);
+				$("#history").prepend("\
+					<div class='historyEntry'>\
+						<div class='spots'>\
+							<button class='repeat'>Repeat this combination</button>"+
+							$("#controls .spots").html() + "\
+						</div>\
+						<div class='results'>\
+							Exacts: <strong>"+mm_global.exact+"</strong> &nbsp; | &nbsp; Near: <strong>"+mm_global.near+"</strong>\
+						</div>\
+					</div>\
+				");
 				$("#controls .spot").each(function(i){
 					if (!$("#controls .fixes input:nth-child("+(i+1)+"):checked").length)
 						$(this).removeAttr("data-guess").removeAttr("style");
@@ -146,9 +245,9 @@ var mm = {
 		});
 
 		$("#colors div").on("click", function(){
-			if (!mm.activeSpot) return;
-			mm.activeSpot.css("background", $(this).css("background-color"));
-			mm.activeSpot.attr("data-guess", $(this).attr("id"));
+			if (!mm_global.activeSpot) return;
+			mm_global.activeSpot.css("background", $(this).css("background-color"));
+			mm_global.activeSpot.attr("data-guess", $(this).attr("id"));
 			$("#pegs").css("display", "none");
 		});
 
@@ -160,80 +259,8 @@ var mm = {
 /* ***************************************************
 */
 
-/* proxy */
-var proxy = {
-	
-	/**
-	/* Action on ready
-	/* Call server API for new game key
-	*/
-	start : function(user){
-		return $.ajax({
-			type: "POST",
-			url: mm.url + mm.ep_new_game,
-			data: { "user": user },
-			dataType: "JSON"
-		});
-	},
-
-	guess : function(code, key){
-		console.log("function sendIt", code, key);
-		return $.ajax({
-			type: "POST",
-			url: mm.url + mm.ep_new_guess,
-			data: { "code" : code, "game_key": key },
-			dataType: "JSON"
-		});
-	},
-	
-	listGames : function(){
-		var gl = "\
-			<option>game number one</option>\
-			<option>zupa-zupa!</option>\
-			<option>try me!</option>\
-			<option>game group samba</option>\
-			<option>hardtroll</option>\
-		";
-		$("#slc_gamesList").html(gl);
+var controller = {
+	blockSend : function(){
+		$("#send").attr("disabled", "disabled");
 	}
-
-}
-
-/**
-/* ***************************************************
-*/
-
-/* state of app */
-var state = {
-	
-	/**
-	/* Action on ready
-	/* Check localstorage for existing data and, if found,
-	/* compares gamekey values
-	*/
-	getLocalGameKey : function(){
-		// TODO record and check time of last update...
-		var gk = localStorage.getItem("mm_game_key");
-		if (gk)
-			return gk;
-		else
-			return false;
-	},
-
-	setLocalGameKey : function(key){
-		localStorage.setItem("mm_game_key", key);
-	},
-	
-	setGameHistory : function(history){
-		
-	},
-	
-	getGameHistory : function(){
-		
-	},
-	
-	reconstructHistory : function(){
-		
-	}
-
 }
