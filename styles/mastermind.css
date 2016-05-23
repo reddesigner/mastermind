@@ -36,6 +36,21 @@ black 	#202020
 
 /* ------------------ */
 
+#cAPI {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	padding: 10px;
+	font-size: 90%;
+	background: #fafafa;
+	border-radius: 8px
+}
+#cAPI button {
+	padding: 4px;
+}
+
+/* ------------------ */
+
 * {
 	transition: all 0.75s ease;
 	outline: none;
@@ -117,12 +132,16 @@ option {
 
 #step1 {
 	background: #16a085;
-	padding: 80px 0 60px;
+	padding: 180px 0 160px;
 }
 #step1_1,
 #step1_2_1,
 #step1_2_2 {
 	padding-top: 40px;
+}
+
+#step2 {
+	background: linear-gradient(rgba(44, 195, 193, 0.39) 460px, transparent 100px);
 }
 
 html.step-s1 {

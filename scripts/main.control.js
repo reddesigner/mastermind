@@ -19,6 +19,24 @@
 /* http://devpost.com/software/mastermind-onpfhe | from slack user "quicoli" | http://vanhack-az-mastermind.azurewebsites.net/ (api)
 */
 
+/* no $ conflict */
+(function($){
+	
+	/* on ready */
+	$(function(){
+		$("#cAPIheroku").on("click", function(){
+			mm_api = mm_api_az;
+			$("#optMulti").hide();
+		});
+		$("#cAPIcustom").on("click", function(){
+			mm_api = mm_api_vh;
+			$("#optMulti").show();
+		});
+	});
+	
+})(jQuery);
+
+
 var mm_global = {
 	activeSpot : null,
 	gkey :null,
@@ -110,6 +128,7 @@ var mm_api = {
 				console.error(data);
 			});
 			$("#step1").hide("fast");
+			$("#cAPI").hide("fast");
 			$("#step2").show("fast");
 			$("html").attr("class", "html-step-s2");
 		});
@@ -141,6 +160,7 @@ var mm_api = {
 				console.error(data);		
 			});
 			$("#step1").hide("fast");
+			$("#cAPI").hide("fast");
 			$("#step2").show("fast");
 			$("html").attr("class", "html-step-s2");
 		});
