@@ -127,6 +127,7 @@ option {
 #step2 {
 	display: none;
 	padding-top: 80px;
+	padding-bottom: 20px;
 	text-align: center;
 }
 
@@ -137,11 +138,11 @@ option {
 #step1_1,
 #step1_2_1,
 #step1_2_2 {
-	padding-top: 40px;
+	padding-top: 20px;
 }
 
 #step2 {
-	background: linear-gradient(rgba(44, 195, 193, 0.39) 460px, transparent 100px);
+	background: linear-gradient(rgba(44, 195, 193, 0.75) 460px, transparent 100px);
 }
 
 html.step-s1 {
@@ -182,10 +183,10 @@ ul.gametype button:active {
 	border-radius: 150px;
 	/*-*/
 	background: transparent; /* For browsers that do not support gradients */
-	background: -webkit-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Safari */
-	background: -o-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Opera 11.6 to 12.0 */
-	background: -moz-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0));; /* Firefox 3.6 to 15 */
-	background: radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0)); /* Standard syntax */
+	background: -webkit-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0)); /* Safari */
+	background: -o-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0)); /* Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0)); /* Firefox 3.6 to 15 */
+	background: radial-gradient(circle, rgba(0,0,0,0), rgba(100,100,100,.1), rgba(100,100,100,.25), rgba(100,100,100,.1), rgba(0,0,0,0), rgba(0,0,0,0), rgba(0,0,0,0)); /* Standard syntax */
 }
 #pegs div div {
 	position: absolute;
@@ -287,9 +288,21 @@ ul.gametype button:active {
 	margin: 0 28px 0 26px;
 }*/
 
-#send {
+#btn_send {
 	display: block;
 	margin: 0 auto;
+	/*-*/
+	width: 80px;
+	height: 80px;
+	border-radius: 40px;
+	line-height: 1;
+	color: #fff;
+	font-weight: bold;
+	background: #2980b9;
+	border: none;
+}
+#btn_new {
+	display: none;
 }
 
 /* ------------------ */
@@ -301,7 +314,10 @@ ul.gametype button:active {
 
 #history .spots {
 	height: auto;
-	margin-top: 40px;
+	margin-top: 10px;
+}
+#history .historyEntry:first-child .spots {
+	margin-top: 60px;
 }
 #history .spot {
 	width: 30px;

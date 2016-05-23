@@ -19,24 +19,6 @@
 /* http://devpost.com/software/mastermind-onpfhe | from slack user "quicoli" | http://vanhack-az-mastermind.azurewebsites.net/ (api)
 */
 
-/* no $ conflict */
-(function($){
-	
-	/* on ready */
-	$(function(){
-		$("#cAPIheroku").on("click", function(){
-			mm_api = mm_api_az;
-			$("#optMulti").hide();
-		});
-		$("#cAPIcustom").on("click", function(){
-			mm_api = mm_api_vh;
-			$("#optMulti").show();
-		});
-	});
-	
-})(jQuery);
-
-
 var mm_global = {
 	activeSpot : null,
 	gkey :null,
@@ -94,7 +76,7 @@ var mm_api = {
 		/**
 		/* First screen!
 		*/
-		$("#step1").show("fast");
+		$("#step1").show();
 		
 		/**
 		/* Next steps - start a new game
@@ -202,7 +184,7 @@ var mm_api = {
 		/* on button click, guess code is formed with .spot data-guess attribute value
 		/* and is send to API with game key.
 		*/
-		$("#send").on("click", function(){
+		$("#btn_send").on("click", function(){
 			mm_global.gcode = "";
 			$("#controls .spots .spot").each(function(i){
 				mm_global.gcode += $(this).attr("data-guess");
@@ -270,7 +252,24 @@ var mm_api = {
 			mm_global.activeSpot.attr("data-guess", $(this).attr("id"));
 			$("#pegs").css("display", "none");
 		});
+		
+		$("#btn_new").on("click", function(){
+			$("#step2, #step1_1, #step1_2_1, #step1_2_2").hide();
+			$("#step1").show("slow");
+		});
 
+		/**
+		/* ***************************************************
+		*/
+
+		$("#cAPIheroku").on("click", function(){
+			mm_api = mm_api_az;
+			$("#optMulti").hide();
+		});
+		$("#cAPIcustom").on("click", function(){
+			mm_api = mm_api_vh;
+			$("#optMulti").show();
+		});
 	});
 
 })(jQuery);
@@ -281,6 +280,8 @@ var mm_api = {
 
 var controller = {
 	blockSend : function(){
-		$("#send").attr("disabled", "disabled");
+		$("#btn_send").hide();
+		$("#btn_new").show("slow");
+
 	}
 }
