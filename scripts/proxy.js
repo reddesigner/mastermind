@@ -4,7 +4,7 @@
 
 /* proxy */
 var proxy = {
-	
+
 	/**
 	/* Action on ready
 	/* Call server API for new game key
@@ -15,7 +15,7 @@ var proxy = {
 			//contentType: "application/json",
 			crossDomain: true,
 			url: mm_api.url + mm_api.ep_new_game,
-			data: { "user" : mm_global.user, "Nickname" : mm_global.user, "NumberOfPlayers" : 1 },
+			data: { "user" : mm_global.user, "Nickname" : mm_global.user, "NumberOfPlayers" : mm_api.p_numberOfPlayers },
 			dataType: "JSON"
 		});
 	},
@@ -34,7 +34,7 @@ var proxy = {
 			dataType: "JSON"
 		});
 	},
-	
+
 	listGames : function(){
 		$.ajax({
 			type: "GET",
@@ -44,7 +44,7 @@ var proxy = {
 			success : function(data){
 				var gl = "";
 				for (var i = 0; i < data.length; i++ ){
-					gl += "<option valuer='"+data[i].GameId+"'>"+data[i].GameId+"</option>"
+					gl += "<option valuer='"+data[i].GameId+"'>Game number "+(i+1)+" - "+data[i].GameId+"</option>"
 				}
 				$("#slc_gamesList").html(gl);
 			},
@@ -60,7 +60,7 @@ var proxy = {
 		$("#slc_gamesList").html(gl);
 		*/
 	},
-	
+
 	joinGame : function(){
 		return $.ajax({
 			type: "POST",

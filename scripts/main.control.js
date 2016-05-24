@@ -42,42 +42,41 @@ var mm_api_vh = {
 	ep_new_guess : "/api/mastermind/Guess",
 	ep_join_game : "/api/mastermind/JoinGame",
 	ep_list_games : "/api/mastermind/GamesAvailable", // GET
+	p_numberOfPlayers : 1, // can be 1 or 2
 	r_gamekey : "GameId"
 };
 
 var mm_api = {
-	url : "http://vanhack-az-mastermind.azurewebsites.net",
-	ep_new_game : "/api/mastermind/NewGame",
-	ep_new_guess : "/api/mastermind/Guess",
-	ep_join_game : "/api/mastermind/JoinGame",
-	ep_list_games : "/api/mastermind/GamesAvailable", // GET
-	r_gamekey : "GameId"
+	url : "https://az-mastermind.herokuapp.com",
+	ep_new_game : "/new_game",
+	ep_new_guess : "/guess",
+	r_gamekey : "game_key"
 };
 
 /* no $ conflict */
 (function($){
 
 	console.log("Start running...");
-	
+
 	/* on ready */
 	$(function(){
 
 		/**
 		/* TODO -> Check for local game key
 		*/
-		/* 
+		/*
 		if(state.getLocalGameKey()){
 			console.log("Hey, we got a local game key!");
 			$("html").attr("class", "html-step-s2");
 			$("#step2").show("fast");
 			state.reconstructHistory();
 		}*/
-		
+
 		/**
 		/* First screen!
 		*/
 		$("#step1").show();
-		
+
 		/**
 		/* Next steps - start a new game
 		*/
@@ -114,7 +113,7 @@ var mm_api = {
 			$("#step2").show("fast");
 			$("html").attr("class", "html-step-s2");
 		});
-		
+
 		/**
 		/*	Action - Select a multiplayer game!
 		*/
@@ -129,7 +128,7 @@ var mm_api = {
 			$("#step1_2_1").hide("fast");
 			$("#step1_2_2").show("fast");
 		});
-		
+
 		/**
 		/*	Action - Start a multiplayer game!
 		*/
@@ -139,12 +138,31 @@ var mm_api = {
 				mm_global.gplayer = data.PlayerId;
 				console.log("game key e player key >>>", mm_global.gkey, mm_global.gplayer);
 			}).error(function(data){
-				console.error(data);		
+				console.error(data);
 			});
 			$("#step1").hide("fast");
 			$("#cAPI").hide("fast");
 			$("#step2").show("fast");
 			$("html").attr("class", "html-step-s2");
+		});
+
+		/**
+		/*	Action - Create a new multiplayer game!
+		*/
+		$("#btn_newMultiGame_newGameName").on("click", function(){
+			mm_api.p_numberOfPlayers = 2;
+			proxy.start().success(function(data){
+				mm_global.gkey = data[mm_api.r_gamekey];
+				mm_global.gplayer = data.PlayerId;
+				$("#step1").hide("fast");
+				$("#cAPI").hide("fast");
+				$("#step2").show("fast");
+				$("html").attr("class", "html-step-s2");
+				mm_api.p_numberOfPlayers = 1;
+			}).error(function(data){
+				console.error(data);
+				mm_api.p_numberOfPlayers = 1;
+			});
 		});
 
 		/**
@@ -168,7 +186,7 @@ var mm_api = {
 
 		/**
 		/* Fallback
-		/* Prevent #pegs to be shown on a incorrect place on resizing 
+		/* Prevent #pegs to be shown on a incorrect place on resizing
 		/* the browser window.
 		*/
 		$(window).on("resize", function(){
@@ -252,7 +270,7 @@ var mm_api = {
 			mm_global.activeSpot.attr("data-guess", $(this).attr("id"));
 			$("#pegs").css("display", "none");
 		});
-		
+
 		$("#btn_new").on("click", function(){
 			$("#step2, #step1_1, #step1_2_1, #step1_2_2").hide();
 			$("#step1").show("slow");
